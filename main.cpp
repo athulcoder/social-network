@@ -2,7 +2,7 @@
 #include <cstring>
 #include <vector>
 #include <unordered_map>
-
+#include <queue>
 using namespace std;
 
 class User
@@ -102,6 +102,15 @@ public:
             User frnd = usersList[mutuals[i]];
             cout << "--> " << frnd.name << endl;
         }
+    }
+
+    void showFriendSuggestion_bfsTraversel(int userId)
+    {
+
+        vector<int> suggestionsList;
+
+        vector<int, bool> visited; // array to store visited ids
+<queue>
     }
 };
 
