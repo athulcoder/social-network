@@ -2,7 +2,6 @@
 #include <cstring>
 #include <vector>
 #include <unordered_map>
-#include <list>
 
 using namespace std;
 
@@ -73,6 +72,36 @@ public:
     // This function is used to show mutual friends between to users
     void findMutualFriends(int userId_1, int userId_2)
     {
+        vector<int> f1 = adj[userId_1];
+        vector<int> f2 = adj[userId_2];
+        vector<int> mutuals;
+
+        for (int i = 0; i < f1.size(); i++)
+        {
+            for (int j = 0; j < f2.size(); j++)
+            {
+
+                if (f1[i] == f2[j])
+                {
+                    mutuals.push_back(f1[i]);
+                    break;
+                }
+            }
+        }
+
+        // after getting the mutual map the userIds with the corresponding user
+
+        User user1 = usersList[userId_1];
+        User user2 = usersList[userId_2];
+
+        cout << "Mutual friends between " << user1.name << " and " << user2.name << endl;
+
+        for (int i = 0; i < mutuals.size(); i++)
+        {
+            cout << mutuals[i];
+            User frnd = usersList[mutuals[i]];
+            cout << "--> " << frnd.name << endl;
+        }
     }
 };
 
@@ -83,10 +112,15 @@ int main()
     g.addUser("bob");
     g.addUser("athul");
     g.addUser("arun");
+    g.addUser("kiran");
 
     g.addFriend(0, 1);
     g.addFriend(0, 2);
     g.addFriend(0, 3);
+    g.addFriend(1, 2);
+    g.addFriend(3, 2);
+    g.displayFriends(0);
+    g.displayFriends(3);
 
-    g.displayFriends();
+    g.findMutualFriends(0, 3);
 }
