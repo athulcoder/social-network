@@ -161,6 +161,11 @@ public:
 int main()
 {
     int choice;
+    string name;
+    int id, id1, id2;
+
+    // Creating a graph object frist
+    Graph g;
     do
     {
         cout << "\n===== Social Network Menu =====\n";
@@ -177,42 +182,42 @@ int main()
         {
         case 1:
         {
-            string name;
+
             cout << "Enter user name: ";
             cin >> name;
-            addUser(name);
+            g.addUser(name);
             break;
         }
         case 2:
         {
-            int id1, id2;
+
             cout << "Enter two user IDs: ";
             cin >> id1 >> id2;
-            addFriend(id1, id2);
+            g.addFriend(id1, id2);
             break;
         }
         case 3:
         {
-            int id;
+
             cout << "Enter user ID: ";
             cin >> id;
-            displayFriends(id);
+            g.displayFriends(id);
             break;
         }
         case 4:
         {
-            int id1, id2;
+
             cout << "Enter two user IDs: ";
             cin >> id1 >> id2;
-            findMutualFriends(id1, id2);
+            g.findMutualFriends(id1, id2);
             break;
         }
         case 5:
         {
-            int id;
+
             cout << "Enter user ID: ";
             cin >> id;
-            showFriendSuggestions(id);
+            g.showFriendSuggestions(id);
             break;
         }
         case 0:
