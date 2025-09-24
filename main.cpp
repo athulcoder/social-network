@@ -2,6 +2,7 @@
 #include <cstring>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <queue>
 using namespace std;
 
@@ -24,7 +25,7 @@ public:
 
     void displayUser()
     {
-        cout << "User ID : " << id << " Username : " << name << endl;
+        cout << "User ID : " << id << " Name : " << name << endl;
     }
 };
 
@@ -104,32 +105,150 @@ public:
         }
     }
 
-    void showFriendSuggestion_bfsTraversel(int userId)
+    void showFriendSuggestions(int userId)
     {
 
-        vector<int> suggestionsList;
+        // Now SuggestionList contains the BFS traversel
+        // now  have to remove ids of (user and ids of his friends from this list)
 
-        vector<int, bool> visited; // array to store visited ids
-<queue>
+        vector<int> suggestionList = Bfs_Travsersel(userId);
+        unordered_set<int> directFriends(adj[userId].begin(), adj[userId].end());
+
+        cout << "Friends Suggestion for " << usersList[userId].name << endl;
+        for (auto id : suggestionList)
+        {
+            if (userId != id && directFriends.find(id) == directFriends.end())
+            {
+                User user = usersList[id];
+                user.displayUser();
+            }
+        }
+    }
+
+    vector<int> Bfs_Travsersel(int userId)
+    {
+
+        //
+        vector<int> resultList;
+
+        unordered_map<int, bool> visited; // array to store visited ids
+        queue<int> q;
+
+        q.push(userId);
+        visited[userId] = 1; // true
+
+        while (!q.empty())
+        {
+            int nodeId = q.front();
+            q.pop();
+            resultList.push_back(nodeId);
+
+            for (int i = 0; i < adj[nodeId].size(); i++)
+            { // loops trought all ids of a particular nodeId
+
+                if (!visited[adj[nodeId][i]])
+                {
+                    visited[adj[nodeId][i]] = 1;
+                    q.push(adj[nodeId][i]);
+                }
+            }
+        }
+
+        return resultList;
     }
 };
 
 int main()
 {
-    Graph g;
-    g.addUser("alice");
-    g.addUser("bob");
-    g.addUser("athul");
-    g.addUser("arun");
-    g.addUser("kiran");
+    int choice;
+    do
+    {
+        cout << "\n===== Social Network Menu =====\n";
+        cout << "1. Add User\n";
+        cout << "2. Add Friend\n";
+        cout << "3. Display Friends\n";
+        cout << "4. Find Mutual Friends\n";
+        cout << "5. Show Friend Suggestions\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-    g.addFriend(0, 1);
-    g.addFriend(0, 2);
-    g.addFriend(0, 3);
-    g.addFriend(1, 2);
-    g.addFriend(3, 2);
-    g.displayFriends(0);
-    g.displayFriends(3);
+        switch (choice)
+        {
+        case 1:
+        {
+            string name;
+            cout << "Enter user name: ";
+            cin >> name;
+            addUser(name);
+            break;
+        }
+        case 2:
+        {
+            int id1, id2;
+            cout << "Enter two user IDs: ";
+            cin >> id1 >> id2;
+            addFriend(id1, id2);
+            break;
+        }
+        case 3:
+        {
+            int id;
+            cout << "Enter user ID: ";
+            cin >> id;
+            displayFriends(id);
+            break;
+        }
+        case 4:
+        {
+            int id1, id2;
+            cout << "Enter two user IDs: ";
+            cin >> id1 >> id2;
+            findMutualFriends(id1, id2);
+            break;
+        }
+        case 5:
+        {
+            int id;
+            cout << "Enter user ID: ";
+            cin >> id;
+            showFriendSuggestions(id);
+            break;
+        }
+        case 0:
+            cout << "Exiting... Goodbye!\n";
+            break;
+        default:
+            cout << "Invalid choice, try again.\n";
+        }
+    } while (choice != 0);
 
-    g.findMutualFriends(0, 3);
+    return 0;
 }
+
+// int main()
+// {
+//     Graph g;
+//     g.addUser("alice");
+//     g.addUser("bob");
+//     g.addUser("athul");
+//     g.addUser("arun");
+//     g.addUser("george");
+//     g.addUser("micael");
+//     g.addUser("midhun");
+//     g.addUser("joseph");
+//     g.addUser("mohan");
+
+//     g.addFriend(0, 1);
+//     g.addFriend(0, 2);
+//     g.addFriend(1, 5);
+//     g.addFriend(1, 7);
+//     g.addFriend(2, 3);
+//     g.addFriend(2, 4);
+//     g.addFriend(5, 6);
+//     g.addFriend(6, 8);
+//     g.addFriend(7, 8);
+//     g.displayFriends(4);
+//     g.showFriendSuggestions(4);
+//     g.findMutualFriends(0, 3);
+// }
