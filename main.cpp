@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+
 using namespace std;
 
 class User
@@ -25,7 +26,7 @@ public:
 
     void displayUser()
     {
-        cout << "User ID : " << id << " Name : " << name << endl;
+        cout << " Name : " << name << endl;
     }
 };
 
@@ -33,7 +34,7 @@ class Graph
 {
 
 public:
-    int v;
+    int v; // no of nodes
     vector<User> usersList;
     unordered_map<int, vector<int>> adj;
 
@@ -158,102 +159,103 @@ public:
     }
 };
 
-int main()
-{
-    int choice;
-    string name;
-    int id, id1, id2;
-
-    // Creating a graph object frist
-    Graph g;
-    do
-    {
-        cout << "\n===== Social Network Menu =====\n";
-        cout << "1. Add User\n";
-        cout << "2. Add Friend\n";
-        cout << "3. Display Friends\n";
-        cout << "4. Find Mutual Friends\n";
-        cout << "5. Show Friend Suggestions\n";
-        cout << "0. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice)
-        {
-        case 1:
-        {
-
-            cout << "Enter user name: ";
-            cin >> name;
-            g.addUser(name);
-            break;
-        }
-        case 2:
-        {
-
-            cout << "Enter two user IDs: ";
-            cin >> id1 >> id2;
-            g.addFriend(id1, id2);
-            break;
-        }
-        case 3:
-        {
-
-            cout << "Enter user ID: ";
-            cin >> id;
-            g.displayFriends(id);
-            break;
-        }
-        case 4:
-        {
-
-            cout << "Enter two user IDs: ";
-            cin >> id1 >> id2;
-            g.findMutualFriends(id1, id2);
-            break;
-        }
-        case 5:
-        {
-
-            cout << "Enter user ID: ";
-            cin >> id;
-            g.showFriendSuggestions(id);
-            break;
-        }
-        case 0:
-            cout << "Exiting... Goodbye!\n";
-            break;
-        default:
-            cout << "Invalid choice, try again.\n";
-        }
-    } while (choice != 0);
-
-    return 0;
-}
-
 // int main()
 // {
-//     Graph g;
-//     g.addUser("alice");
-//     g.addUser("bob");
-//     g.addUser("athul");
-//     g.addUser("arun");
-//     g.addUser("george");
-//     g.addUser("micael");
-//     g.addUser("midhun");
-//     g.addUser("joseph");
-//     g.addUser("mohan");
+//     int choice;
+//     string name;
+//     int id, id1, id2;
 
-//     g.addFriend(0, 1);
-//     g.addFriend(0, 2);
-//     g.addFriend(1, 5);
-//     g.addFriend(1, 7);
-//     g.addFriend(2, 3);
-//     g.addFriend(2, 4);
-//     g.addFriend(5, 6);
-//     g.addFriend(6, 8);
-//     g.addFriend(7, 8);
-//     g.displayFriends(4);
-//     g.showFriendSuggestions(4);
-//     g.findMutualFriends(0, 3);
+//     // Creating a graph object frist
+//     Graph g;
+//     do
+//     {
+//         cout << "\n===== Social Network Menu =====\n";
+//         cout << "1. Add User\n";
+//         cout << "2. Add Friend\n";
+//         cout << "3. Display Friends\n";
+//         cout << "4. Find Mutual Friends\n";
+//         cout << "5. Show Friend Suggestions\n";
+//         cout << "0. Exit\n";
+//         cout << "Enter your choice: ";
+//         cin >> choice;
+
+//         switch (choice)
+//         {
+//         case 1:
+//         {
+
+//             cout << "Enter user name: ";
+//             cin >> name;
+//             g.addUser(name);
+//             break;
+//         }
+//         case 2:
+//         {
+
+//             cout << "Enter two user IDs: ";
+//             cin >> id1 >> id2;
+//             g.addFriend(id1, id2);
+//             break;
+//         }
+//         case 3:
+//         {
+
+//             cout << "Enter user ID: ";
+//             cin >> id;
+//             g.displayFriends(id);
+//             break;
+//         }
+//         case 4:
+//         {
+
+//             cout << "Enter two user IDs: ";
+//             cin >> id1 >> id2;
+//             g.findMutualFriends(id1, id2);
+//             break;
+//         }
+//         case 5:
+//         {
+
+//             cout << "Enter user ID: ";
+//             cin >> id;
+//             g.showFriendSuggestions(id);
+//             break;
+//         }
+//         case 0:
+//             cout << "Exiting... Goodbye!\n";
+//             break;
+//         default:
+//             cout << "Invalid choice, try again.\n";
+//         }
+//     } while (choice != 0);
+
+//     return 0;
 // }
+
+int main()
+{
+    Graph g;
+    g.addUser("Antony");  // 0
+    g.addUser("Issac");   // 1
+    g.addUser("Athul");   // 2
+    g.addUser("Arun");    // 3
+    g.addUser("George");  // 4
+    g.addUser("Angel");   // 5
+    g.addUser("Lakshmi"); // 6
+    g.addUser("Alex");    // 7
+    g.addUser("Soorya");  // 8
+
+    g.addFriend(0, 1);
+    g.addFriend(0, 2);
+    g.addFriend(1, 5);
+    g.addFriend(1, 7);
+    g.addFriend(2, 3);
+    g.addFriend(2, 4);
+    g.addFriend(5, 6);
+    g.addFriend(6, 8);
+    g.addFriend(7, 8);
+    g.addFriend(2, 8);
+    g.displayFriends(6);
+    g.showFriendSuggestions(5);
+    g.findMutualFriends(0, 8);
+}
