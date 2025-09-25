@@ -26,7 +26,7 @@ public:
 
     void displayUser()
     {
-        cout << " Name : " << name << endl;
+        cout << "User Id : " << id << " Name : " << name << endl;
     }
 };
 
@@ -36,7 +36,7 @@ class Graph
 public:
     int v; // no of nodes
     vector<User> usersList;
-    unordered_map<int, vector<int>> adj;
+    unordered_map<int, vector<int>> adj; // adjacency list
 
     Graph()
     {
@@ -47,6 +47,7 @@ public:
     {
 
         usersList.push_back(User(v, username));
+        v++;
     }
 
     void addFriend(int u, int v, bool direction = false)
